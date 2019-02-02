@@ -1,0 +1,32 @@
+# saints_days.dat
+# -*- coding: utf-8 -*-
+#
+# The data in this file is used to make the various parts of a model astrolabe.
+#
+# Copyright (C) 2010-2019 Dominic Ford <dcf21-www@dcford.org.uk>
+#
+# This code is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option) any later
+# version.
+#
+# You should have received a copy of the GNU General Public License along with
+# this file; if not, write to the Free Software Foundation, Inc., 51 Franklin
+# Street, Fifth Floor, Boston, MA  02110-1301, USA
+
+# ----------------------------------------------------------------------------
+
+# Régi magyar hónap-elnevezések / Old Hungarian names of months
+
+15 01 Boldogasszony
+15 02 Böjtelő
+15 03 Böjtmás
+15 04 Szt.György
+15 05 Pünkösd
+15 06 Szt.Iván
+15 07 Szt.Jakab
+15 08 Kisasszony
+15 09 Szt.Mihály
+15 10 Mindszentek
+15 11 Szt.András
+15 12 Karácsony

@@ -47,9 +47,9 @@ theme = arguments['theme']
 
 # Render astrolabe in all available languages
 for language in text.text:
-
-    # Render climates for latitudes at 5-degree spacings from 10 deg -- 85 deg, plus 52N
-    for latitude in list(range(-80, 90, 5)) + [52]:
+    
+    # Render climates for latitudes at 5-degree spacings from 10 deg -- 85 deg, plus 52N, plus 47N
+    for latitude in list(range(-80, 90, 5)) + [52, 47]:
 
         # Do not make equatorial astrolabes, as they don't really work
         if -10 < latitude < 10:

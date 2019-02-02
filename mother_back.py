@@ -17,6 +17,12 @@
 
 # ----------------------------------------------------------------------------
 
+# A modification for the Hungarian version was added by Donát Takács
+#
+# Instead of the dominic days and the (to Hungarian tradition, not very significant)
+# feast dates, the old Hungarian names of the 12 months were included instead,
+# and the shadow scale was made a bit larger.
+
 """
 Render the back of the mother of the astrolabe.
 """
@@ -76,6 +82,7 @@ class MotherBack(BaseComponent):
         """
 
         language = settings['language']
+
         theme = themes[settings['theme']]
 
         context.set_color(color=theme['lines'])
@@ -93,6 +100,10 @@ class MotherBack(BaseComponent):
         r_11 = r_10 - d_12
         r_12 = r_11 - d_12
         r_13 = d_12 * centre_scaling
+
+        # No need for circle 12 in the Hungarian version
+        if language == "hu":
+            r_12=r_11
 
         # Draw the handle at the top of the astrolabe
         ang = 180 * unit_deg - acos(unit_cm / r_1)
@@ -151,9 +162,10 @@ class MotherBack(BaseComponent):
         context.circle(centre_x=0, centre_y=0, radius=r_11)
         context.stroke(line_width=1)
 
-        context.begin_path()
-        context.circle(centre_x=0, centre_y=0, radius=r_12)
-        context.stroke(line_width=1)
+        if language != "hu":
+            context.begin_path()
+            context.circle(centre_x=0, centre_y=0, radius=r_12)
+            context.stroke(line_width=1)
 
         context.begin_path()
         context.circle(centre_x=0, centre_y=0, radius=r_13)
@@ -366,7 +378,14 @@ class MotherBack(BaseComponent):
 
         # Add significant dates between circles 10 and 12
         context.set_font_size(1.0)
-        for line in open("raw_data/saints_days.dat"):
+
+        # In a Hungarian astrolabe we generate the old names of the months instead
+        if language != "hu":
+            data_file = "raw_data/saints_days.dat"
+        else:
+            data_file = "raw_data/old_hungarian_months.dat"
+
+        for line in open(data_file):
             line = line.strip()
 
             # Ignore blank lines and comment lines
@@ -382,9 +401,10 @@ class MotherBack(BaseComponent):
             context.circular_text(text=name, centre_x=0, centre_y=0, radius=r_10 * 0.65 + r_11 * 0.35,
                                   azimuth=theta / unit_deg,
                                   spacing=1, size=1)
-            context.circular_text(text=sunday_letter, centre_x=0, centre_y=0, radius=r_11 * 0.65 + r_12 * 0.35,
-                                  azimuth=theta / unit_deg,
-                                  spacing=1, size=1)
+        if language != "hu":
+                context.circular_text(text=sunday_letter, centre_x=0, centre_y=0, radius=r_11 * 0.65 + r_12 * 0.35,
+                                      azimuth=theta / unit_deg,
+                                          spacing=1, size=1)
 
         # Shadow scale in middle of astrolabe
         context.begin_path()
