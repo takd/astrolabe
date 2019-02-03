@@ -27,6 +27,7 @@ from constants import unit_deg, unit_cm, unit_mm, inclination_ecliptic, centre_s
 from graphics_context import BaseComponent
 from settings import fetch_command_line_arguments
 from themes import themes
+from text import text
 
 
 class Rule(BaseComponent):
@@ -75,6 +76,8 @@ class Rule(BaseComponent):
 
         margin = 2 * unit_cm
 
+
+
         r_2 = r_1 - d_12 * 3 - unit_mm  # Outer radius of rete
         r_3 = d_12 * centre_scaling  # Radius of central hole
 
@@ -84,6 +87,12 @@ class Rule(BaseComponent):
         r_6 = 0.8 * unit_cm  # Width of alidade
 
         r_12 = r_1 - d_12 * 10  # Outer radius of shadow scale
+        
+        language = settings['language']
+        # No need for circle 12 in the Hungarian version
+        if language == "hu":
+            r_12 = r_1 - d_12 * 9
+        
 
         # Subroutine to draw outlines of rule and the alidade
         def rule_draw(context, xpos, ypos, sight):
