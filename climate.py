@@ -204,6 +204,11 @@ class Climate(BaseComponent):
                 direction = re.sub("W", "e", direction)
                 direction = re.sub("E", "W", direction)
                 direction = re.sub("e", "E", direction)
+            if language == "hu":
+                direction = re.sub("N", "É", direction)
+                direction = re.sub("W", "Ny", direction)
+                direction = re.sub("E", "K", direction)
+                direction = re.sub("S", "D", direction)
 
             t_x = (z_y - t_y) * tan(altitude)
 
@@ -247,12 +252,21 @@ class Climate(BaseComponent):
                              h_align=0, v_align=0, gap=0,
                              rotation=(min(end, end2) - (r_2 / t_r) * 8 * unit_deg))
 
-            direction = re.sub("N", "s", direction)
-            direction = re.sub("S", "N", direction)
-            direction = re.sub("s", "S", direction)
-            direction = re.sub("W", "e", direction)
-            direction = re.sub("E", "W", direction)
-            direction = re.sub("e", "E", direction)
+            if language != "hu":
+                direction = re.sub("N", "s", direction)
+                direction = re.sub("S", "N", direction)
+                direction = re.sub("s", "S", direction)
+                direction = re.sub("W", "e", direction)
+                direction = re.sub("E", "W", direction)
+                direction = re.sub("e", "E", direction)
+            else:    
+                direction = re.sub("É", "d", direction)
+                direction = re.sub("D", "É", direction)
+                direction = re.sub("d", "D", direction)
+                direction = re.sub("Ny", "k", direction)
+                direction = re.sub("K", "Ny", direction)
+                direction = re.sub("k", "K", direction)
+
 
             if hypot(t_x + t_r * sin(start), t_y + t_r * cos(start)) < 0.9 * r_2:
                 context.text(text=direction,
@@ -269,12 +283,20 @@ class Climate(BaseComponent):
 
             altitude = altitude + ss
 
+
+        if language != "hu":
+            north_letter = "N"
+            south_letter = "S"
+        else:
+            north_letter = "É"
+            south_letter = "D"
+
         if not is_southern:
-            context.text(text="N",
+            context.text(text=north_letter,
                          x=0, y=-horizon_centre + horizon_radius,
                          h_align=0, v_align=1, gap=unit_mm, rotation=0)
         else:
-            context.text(text="S",
+            context.text(text=south_letter,
                          x=0, y=-horizon_centre + horizon_radius,
                          h_align=0, v_align=1, gap=unit_mm, rotation=0)
 
@@ -332,7 +354,7 @@ class Climate(BaseComponent):
         context.circular_text(text=text[language]['copyright'],
                               centre_x=0, centre_y=0, radius=r_2 - 1.3 * unit_cm,
                               azimuth=270, spacing=1, size=0.7)
-        context.circular_text(text=text[language]['climate_latitude'].format(latitude, "N" if not is_southern else "S"),
+        context.circular_text(text=text[language]['climate_latitude'].format(latitude, north_letter if not is_southern else south_letter),
                               centre_x=0, centre_y=0, radius=r_2 - 1.0 * unit_cm,
                               azimuth=270, spacing=1, size=0.7)
 

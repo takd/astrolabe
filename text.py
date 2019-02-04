@@ -300,7 +300,7 @@ text = {
 		"Vulpecula": "Kis_Róka"
             },
             "url": "https://in-the-sky.org/astrolabe/index.html",
-            "copyright": "\u00A9 Dominic Ford 2019",
-            "climate_latitude": "Szélességi kör: {:02d}{:s}"
+            "copyright": "\u00A9 DF & TD  2019",
+            "climate_latitude": "Szélességi kör: {:02d}{:s} "
         },
 }
